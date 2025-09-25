@@ -10,11 +10,9 @@
 		body {
 			background-color: black;
 
-			display: grid;
-			place-items: center;
-
 			margin: 0;
 			height: 100vh;
+			position: relative;
 
 			font-family: "Roboto", sans-serif;
 			font-weight: 500;
@@ -32,14 +30,6 @@
 			-webkit-backdrop-filter: blur(5px);
 			border: 1px solid rgba(255, 255, 255, 0.3);
 
-		}
-
-		dialog .container {
-			display: grid;
-			grid-template-columns: auto auto;
-			grid-template-rows: auto auto;
-			column-gap: 2rem;
-			row-gap: 1rem;
 		}
 
 		dialog p {
@@ -84,7 +74,6 @@
 			width: calc(var(--progress, 0%) - 2 * var(--_margin));
 
 			background-image: linear-gradient(90deg, rgba(100, 0, 255, 1) 0%, rgba(254, 17, 17, 1) 50%, rgba(200, 255, 0, 1) 100%);
-			;
 			background-attachment: fixed;
 			border-radius: 100vmax;
 
@@ -96,18 +85,64 @@
 			top: 50%;
 			translate: -50% -50%;
 		}
+
+		main {
+			position: absolute;
+			inset: 1rem;
+
+			display: grid;
+			place-items: center;
+		}
+
+		canvas {
+			outline: 1px solid white;
+			border-radius: 1rem;
+		}
+
+		aside {
+			position: absolute;
+
+			margin: auto;
+			bottom: 1.5rem;
+			left: 50%;
+			translate: -50% 0;
+
+			padding: 1rem ;
+			border-radius: 1rem;
+
+			background: rgba(255, 255, 255, 0.2);
+			box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+			backdrop-filter: blur(5px);
+			-webkit-backdrop-filter: blur(5px);
+			border: 1px solid rgba(255, 255, 255, 0.3);
+		}
+
+		aside button {
+			background-color: rgba(150 150 250 / 0.5);
+			border: 1px solid rgba(255 255 255 / 0.3);
+			backdrop-filter: blur(10px);
+			padding: .5em 1em;
+			border-radius: .5rem;
+			cursor: pointer;
+
+			color: white;
+			font-weight: 500;
+		}
 	</style>
 </head>
 
 <body>
-	<canvas id="main-canvas"></canvas>
+	<main id="container">
+		<canvas id="main-canvas"></canvas>
+	</main>
+
+	<aside>
+		<button id="rerun-btn">ReRun Raytracer</button>
+	</aside>
 
 	<dialog id="progress-dialog">
-		<div class="container">
-			<p>ETA <span id="eta"></span></p>
-			<div class="progressbar"><span id="progress"></span></div>
-		</div>
-
+		<p>ETA <span id="eta"></span></p>
+		<div class="progressbar"><span id="progress"></span></div>
 	</dialog>
 
 	<script type="module" src="/src/main.ts"></script>
