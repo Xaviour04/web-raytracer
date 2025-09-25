@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<link rel="icon" type="image/svg+xml" href="/vite.svg" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>web-raytracer</title>
+	<style>
+		body {
+			background-color: black;
+
+			display: grid;
+			place-items: center;
+
+			margin: 0;
+			height: 100vh;
+
+			font-family: "Roboto", sans-serif;
+			font-weight: 500;
+		}
+
+		dialog {
+			border-radius: 2rem;
+			font-size: 1.5rem;
+			color: white;
+
+			background: rgba(255, 255, 255, 0.2);
+			border-radius: 16px;
+			box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+			backdrop-filter: blur(5px);
+			-webkit-backdrop-filter: blur(5px);
+			border: 1px solid rgba(255, 255, 255, 0.3);
+
+		}
+
+		dialog .container {
+			display: grid;
+			grid-template-columns: auto auto;
+			grid-template-rows: auto auto;
+			column-gap: 2rem;
+			row-gap: 1rem;
+		}
+
+		dialog p {
+			width: fit-content;
+			max-width: calc(90vw - 2rem);
+			font-size: 1rem;
+		}
+
+		dialog p span {
+			margin-left: .5rem;
+			font-size: 2rem;
+		}
+
+		dialog:focus-within {
+			outline: none;
+		}
+
+		.progressbar {
+			grid-column: 1 / span 2;
+			min-width: 50vw;
+			height: 4rem;
+			position: relative;
+
+			background: rgba(255, 255, 255, 0.2);
+			border-radius: 100vmax;
+			box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+			backdrop-filter: blur(5px);
+			-webkit-backdrop-filter: blur(5px);
+			border: 1px solid rgba(255, 255, 255, 0.3);
+
+			background-attachment: fixed;
+			isolation: isolate;
+		}
+
+		.progressbar::after {
+			--_margin: .5rem;
+
+			content: "";
+			position: absolute;
+			z-index: -1;
+			inset: var(--_margin);
+			width: calc(var(--progress, 0%) - 2 * var(--_margin));
+
+			background-image: linear-gradient(90deg, rgba(100, 0, 255, 1) 0%, rgba(254, 17, 17, 1) 50%, rgba(200, 255, 0, 1) 100%);
+			;
+			background-attachment: fixed;
+			border-radius: 100vmax;
+
+		}
+
+		.progressbar span {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			translate: -50% -50%;
+		}
+	</style>
+</head>
+
+<body>
+	<canvas id="main-canvas"></canvas>
+
+	<dialog id="progress-dialog">
+		<div class="container">
+			<p>ETA <span id="eta"></span></p>
+			<div class="progressbar"><span id="progress"></span></div>
+		</div>
+
+	</dialog>
+
+	<script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>
