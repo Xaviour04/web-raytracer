@@ -12,4 +12,8 @@ export default class Ray {
     at(t: number) {
         return this.origin.add(this.dir.mul(t));
     }
+
+    direction() {
+        return this.dir.clone()
+    }
 }

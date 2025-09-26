@@ -44,7 +44,6 @@ export default class Vec3 {
         return this.x * this.x + this.y * this.y + this.z * this.z;
     }
 
-
     /**
      * Computes and returns the magnitude/length of the vector
      */
@@ -52,18 +51,12 @@ export default class Vec3 {
         return Math.sqrt(this.mag_sqaured());
     }
 
-
     /**
      * Computes the dot product of the vectors and returns new vector
      */
     dot(other: Vec3) {
-        return new Vec3(
-            this.x * other.x,
-            this.y * other.y,
-            this.z * other.z
-        );
+        return new Vec3(this.x * other.x, this.y * other.y, this.z * other.z);
     }
-
 
     /**
      * Computes the cross product of the vectors and returns new vector
@@ -86,4 +79,8 @@ export default class Vec3 {
     clone() {
         return new Vec3(this.x, this.y, this.z);
     }
+}
+
+export function color(r: number, g: number, b: number) {
+    return new Vec3(r, g, b);
 }
