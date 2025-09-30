@@ -14,8 +14,8 @@ const etaElem = document.getElementById("eta") as HTMLSpanElement;
 const rerunBtn = document.getElementById("rerun-btn") as HTMLButtonElement;
 
 const aspectRatio = 16 / 9;
-const canvasWidth = 400;
-const canvasHeight = Math.max(canvas.width / aspectRatio, 1);
+const canvasWidth = 1000;
+const canvasHeight = Math.max(canvasWidth / aspectRatio, 1);
 
 canvas.width = canvasWidth;
 canvas.height = canvasHeight;
@@ -28,12 +28,17 @@ const resizeImageData = (
 	targetWidth: number,
 	targetHeight: number) => {
 	const tempCanvas = document.createElement("canvas");
-	const tempCtx = tempCanvas.getContext("2d")!;
 	tempCanvas.width = sourceWidth;
 	tempCanvas.height = sourceHeight;
+
+	const tempCtx = tempCanvas.getContext("2d")!;
 	tempCtx.putImageData(image, 0, 0);
 	ctx.scale(targetWidth / sourceWidth, targetHeight / sourceHeight);
+
+	ctx.clearRect(0, 0, sourceWidth, sourceHeight);
 	ctx.drawImage(tempCanvas, 0, 0);
+	
+	ctx.scale(sourceWidth / targetWidth, sourceHeight / targetHeight);
 };
 
 const loop = () => {
@@ -97,7 +102,18 @@ const loop = () => {
 	canvas.height = newHeight;
 
 	resizeImageData(ctx, image, oldWidth, oldHeight, canvas.width, canvas.height);
-})();
+});
+
+let newHeight = mainElem.clientHeight;
+let newWidth = mainElem.clientHeight * canvas.width / canvas.height;
+
+if (newWidth > mainElem.clientWidth) {
+	newWidth = mainElem.clientWidth;
+	newHeight = mainElem.clientWidth * canvas.height / canvas.width;
+}
+
+canvas.width = newWidth;
+canvas.height = newHeight;
 
 loop();
 

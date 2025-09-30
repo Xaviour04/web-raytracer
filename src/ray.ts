@@ -1,19 +1,15 @@
 import type Vec3 from "./vector3";
 
 export default class Ray {
-    private origin: Vec3;
-    private dir: Vec3;
+    origin: Vec3;
+    dir: Vec3;
 
     constructor(origin: Vec3, dir: Vec3) {
         this.origin = origin.clone();
         this.dir = dir.clone();
     }
 
-    at(t: number) {
+    at(t: number): Vec3 {
         return this.origin.add(this.dir.mul(t));
-    }
-
-    direction() {
-        return this.dir.clone()
     }
 }
